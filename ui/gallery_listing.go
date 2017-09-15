@@ -40,7 +40,11 @@ func (c *GalleryListingCard) Render() gtk.IWidget {
 				err))
 			must.Must(err)
 		} else {
-			resizedPicture := imaging.Resize(picture, 200, 300, imaging.Lanczos)
+			yDimension := 300
+			scaleFactor := float32(yDimension) / float32(picture.Bounds().Max.Y)
+			xDimension := int(float32(picture.Bounds().Max.X) * scaleFactor)
+
+			resizedPicture := imaging.Resize(picture, xDimension, yDimension, imaging.Lanczos)
 			pixBuf, err := PixBufFromImage(resizedPicture)
 			imageWidget, err = gtk.LabelNew(fmt.Sprintf("couldn't create an image for '%s'. Error: %s",
 				imageInfo.RelativePath,
