@@ -47,8 +47,8 @@ func (w *AppWindow) RenderCard(card Card) {
 	w.contentContainer, err = gtk.BoxNew(gtk.ORIENTATION_VERTICAL, 0)
 	must.Must(err)
 
-	w.contentContainer.Add(card.Render())
-	w.outerContainer.Add(w.contentContainer)
+	w.contentContainer.PackStart(card.Render(), true, true, 0)
+	w.outerContainer.PackStart(w.contentContainer, true, true, 0)
 
 	w.win.ShowAll()
 }

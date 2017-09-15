@@ -63,12 +63,11 @@ func (c *GalleryListingCard) Render() gtk.IWidget {
 		hbox.PackStart(vbox, false, false, 5)
 	}
 
-	/*
-		scrollWin, err := gtk.ScrolledWindowNew(nil, nil)
-		must.Must(err)
-		scrollWin.SetPolicy(gtk.POLICY_ALWAYS, gtk.POLICY_ALWAYS)
+	scrollWin, err := gtk.ScrolledWindowNew(nil, nil)
+	must.Must(err)
+	scrollWin.SetPolicy(gtk.POLICY_ALWAYS, gtk.POLICY_ALWAYS)
 
-		scrollWin.Add(hbox)
-	*/
-	return hbox
+	scrollWin.Add(hbox)
+
+	return scrollWin
 }
