@@ -57,10 +57,22 @@
 			"revisionTime": "2017-04-18T12:36:59Z"
 		},
 		{
+			"checksumSHA1": "cIGU9XgLD8Vdmp7NZ+es421fSuY=",
+			"path": "github.com/jamesrr39/go-gtk-extra/gotk3-extra",
+			"revision": "badbf0a21bbce8421ee16414f96a993e1d55d9de",
+			"revisionTime": "2017-09-18T22:14:38Z"
+		},
+		{
 			"checksumSHA1": "DmPGJoJZh7hW+xgjqBFKqGe7eD8=",
 			"path": "github.com/jamesrr39/goutil/dirtraversal",
 			"revision": "6487420f6dc11aa100aa117dce237c38fc41dadf",
 			"revisionTime": "2017-09-14T17:49:52Z"
+		},
+		{
+			"checksumSHA1": "BFVZWZWo4pk8T2bhrfQYjPyRbjU=",
+			"path": "github.com/jamesrr39/goutil/image-processing/imageprocessingutil",
+			"revision": "6110f8309cd26228990f109d784998c4b9e5c0ab",
+			"revisionTime": "2017-09-18T22:15:34Z"
 		},
 		{
 			"checksumSHA1": "fubbdxW3q9Q9jVMbtjPWdPGh1Cg=",
@@ -91,6 +103,24 @@
 			"path": "github.com/jamesrr39/gtk3-app/ui",
 			"revision": "12fbfbe7df7c85281ab94fbdcf7b2193d8c224c5",
 			"revisionTime": "2017-09-15T17:08:38Z"
+		},
+		{
+			"checksumSHA1": "Hyq5TfckXb0LMOk+8scODlD0i2M=",
+			"path": "github.com/jamesrr39/image-processing/processing",
+			"revision": "390076db4be2a157da53c6a1e9ca5a6ce08fdbf7",
+			"revisionTime": "2017-01-18T20:35:01Z"
+		},
+		{
+			"checksumSHA1": "Q68FxXX04PtPDIG7C1RlSDhx/ko=",
+			"path": "github.com/rwcarlsen/goexif/exif",
+			"revision": "709fab3d192d7c62f86043caff1e7e3fb0f42bd8",
+			"revisionTime": "2015-05-20T14:06:47Z"
+		},
+		{
+			"checksumSHA1": "0+tTLlssYWyGuq+vQs4IiPIXJW4=",
+			"path": "github.com/rwcarlsen/goexif/tiff",
+			"revision": "709fab3d192d7c62f86043caff1e7e3fb0f42bd8",
+			"revisionTime": "2015-05-20T14:06:47Z"
 		},
 		{
 			"checksumSHA1": "lBehULzb2/kIK3wZ0gz2yNmHq9s=",
@@ -141,5 +171,5 @@
 			"revisionTime": "2016-08-29T10:30:05Z"
 		}
 	],
-	"rootPath": "github.com/jamesrr39/gtk3-app"
+	"rootPath": "github.com/jamesrr39/gtk3-image-gallery-demo-app"
 }

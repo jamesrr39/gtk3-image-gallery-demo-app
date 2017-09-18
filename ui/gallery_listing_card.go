@@ -7,6 +7,7 @@ import (
 	"github.com/disintegration/imaging"
 	"github.com/gotk3/gotk3/glib"
 	"github.com/gotk3/gotk3/gtk"
+	gotk3extra "github.com/jamesrr39/go-gtk-extra/gotk3-extra"
 	"github.com/jamesrr39/goutil/must"
 	"github.com/jamesrr39/gtk3-image-gallery-demo-app/domain"
 )
@@ -52,7 +53,7 @@ func (c *GalleryListingCard) createThumbnail(imageInfo *domain.ImageInfo) *gtk.B
 	imageWidgetContainer, err := gtk.BoxNew(gtk.ORIENTATION_VERTICAL, 0)
 	must.Must(err)
 
-	loadingLabel, err := gtk.LabelNew("loading...")
+	loadingLabel, err := gtk.LabelNew("loading... (time.Sleep to simulate delay)")
 	must.Must(err)
 
 	imageWidgetContainer.PackStart(loadingLabel, false, false, 0)
@@ -71,7 +72,7 @@ func (c *GalleryListingCard) createThumbnail(imageInfo *domain.ImageInfo) *gtk.B
 			xDimension := int(float32(picture.Bounds().Max.X) * scaleFactor)
 
 			resizedPicture := imaging.Resize(picture, xDimension, yDimension, imaging.Lanczos)
-			pixBuf, err := PixBufFromImage(resizedPicture)
+			pixBuf, err := gotk3extra.PixBufFromImage(resizedPicture)
 			imageWidget, err = gtk.LabelNew(fmt.Sprintf("couldn't create an image for '%s'. Error: %s",
 				imageInfo.RelativePath,
 				err))

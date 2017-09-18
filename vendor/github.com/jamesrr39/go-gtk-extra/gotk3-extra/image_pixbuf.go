@@ -1,4 +1,4 @@
-package ui
+package gotk3extra
 
 import (
 	"image"
