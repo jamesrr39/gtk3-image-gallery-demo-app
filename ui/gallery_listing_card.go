@@ -84,7 +84,7 @@ func (c *GalleryListingCard) createThumbnail(imageInfo *domain.ImageInfo) *gtk.B
 	hbox, err := gtk.BoxNew(gtk.ORIENTATION_HORIZONTAL, 3)
 	must.Must(err)
 	hbox.PackStart(label, false, false, 0)
-	hbox.PackEnd(popupButton, false, false, 0)
+	hbox.PackEnd(openImageCardButton, false, false, 0)
 
 	vbox, err := gtk.BoxNew(gtk.ORIENTATION_VERTICAL, 5)
 	must.Must(err)

@@ -25,8 +25,6 @@ func NewImageCard(appWindow *AppWindow, imageInfo *domain.ImageInfo) *ImageCard 
 }
 
 func (c *ImageCard) Render() gtk.IWidget {
-	screen, err := c.AppWindow.win.GetScreen()
-	must.Must(err)
 
 	picture, err := c.AppWindow.ImageDAL.GetImage(c.ImageInfo.RelativePath)
 	if nil != err {
@@ -35,14 +33,16 @@ func (c *ImageCard) Render() gtk.IWidget {
 		return label
 	}
 
+	winWidth, winHeight := c.win.GetSize()
+
 	newSize := imageprocessingutil.GetResizeSize(
 		imageprocessingutil.Size{
 			Width:  picture.Bounds().Max.X,
 			Height: picture.Bounds().Max.Y,
 		},
 		imageprocessingutil.Size{
-			Width:  screen.GetWidth(),
-			Height: screen.GetHeight(),
+			Width:  winWidth - 100,
+			Height: winHeight - 30,
 		})
 
 	resizedPicture := imaging.Resize(picture, newSize.Width, newSize.Height, imaging.Lanczos)
@@ -69,6 +69,12 @@ func (c *ImageCard) Render() gtk.IWidget {
 		c.setImage(processing.Transform(resizedPicture, processing.NewNegativeTransformation()))
 	})
 
+	greyscaleButton, err := gtk.ButtonNewWithLabel("Greyscale")
+	must.Must(err)
+	greyscaleButton.Connect("clicked", func() {
+		c.setImage(processing.Transform(resizedPicture, processing.NewGreyScaleTransformation()))
+	})
+
 	redButton, err := gtk.ButtonNewWithLabel("Red")
 	must.Must(err)
 	redButton.Connect("clicked", func() {
@@ -93,6 +99,7 @@ func (c *ImageCard) Render() gtk.IWidget {
 	pictureModeButtonsBox.PackStart(normalButton, false, false, 0)
 	pictureModeButtonsBox.PackStart(simpleButton, false, false, 0)
 	pictureModeButtonsBox.PackStart(negativeButton, false, false, 0)
+	pictureModeButtonsBox.PackStart(greyscaleButton, false, false, 0)
 	pictureModeButtonsBox.PackStart(redButton, false, false, 0)
 	pictureModeButtonsBox.PackStart(greenButton, false, false, 0)
 	pictureModeButtonsBox.PackStart(blueButton, false, false, 0)
