@@ -2,8 +2,10 @@ package ui
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/disintegration/imaging"
+	"github.com/gotk3/gotk3/glib"
 	"github.com/gotk3/gotk3/gtk"
 	"github.com/jamesrr39/goutil/must"
 	"github.com/jamesrr39/gtk3-image-gallery-demo-app/domain"
@@ -47,28 +49,46 @@ func (c *GalleryListingCard) createThumbnail(imageInfo *domain.ImageInfo) *gtk.B
 	label, err := gtk.LabelNew(imageInfo.RelativePath)
 	must.Must(err)
 
-	var imageWidget gtk.IWidget
-	picture, err := c.GetImage(imageInfo.RelativePath)
-	if nil != err {
-		imageWidget, err = gtk.LabelNew(fmt.Sprintf("couldn't get '%s'. Error: %s",
-			imageInfo.RelativePath,
-			err))
-		must.Must(err)
-	} else {
-		yDimension := 300
-		scaleFactor := float32(yDimension) / float32(picture.Bounds().Max.Y)
-		xDimension := int(float32(picture.Bounds().Max.X) * scaleFactor)
+	imageWidgetContainer, err := gtk.BoxNew(gtk.ORIENTATION_VERTICAL, 0)
+	must.Must(err)
 
-		resizedPicture := imaging.Resize(picture, xDimension, yDimension, imaging.Lanczos)
-		pixBuf, err := PixBufFromImage(resizedPicture)
-		imageWidget, err = gtk.LabelNew(fmt.Sprintf("couldn't create an image for '%s'. Error: %s",
-			imageInfo.RelativePath,
-			err))
-		must.Must(err)
+	loadingLabel, err := gtk.LabelNew("loading...")
+	must.Must(err)
 
-		imageWidget, err = gtk.ImageNewFromPixbuf(pixBuf)
-		must.Must(err)
-	}
+	imageWidgetContainer.PackStart(loadingLabel, false, false, 0)
+
+	go func() {
+		var imageWidget gtk.IWidget
+		picture, err := c.GetImage(imageInfo.RelativePath)
+		if nil != err {
+			imageWidget, err = gtk.LabelNew(fmt.Sprintf("couldn't get '%s'. Error: %s",
+				imageInfo.RelativePath,
+				err))
+			must.Must(err)
+		} else {
+			yDimension := 300
+			scaleFactor := float32(yDimension) / float32(picture.Bounds().Max.Y)
+			xDimension := int(float32(picture.Bounds().Max.X) * scaleFactor)
+
+			resizedPicture := imaging.Resize(picture, xDimension, yDimension, imaging.Lanczos)
+			pixBuf, err := PixBufFromImage(resizedPicture)
+			imageWidget, err = gtk.LabelNew(fmt.Sprintf("couldn't create an image for '%s'. Error: %s",
+				imageInfo.RelativePath,
+				err))
+			must.Must(err)
+
+			imageWidget, err = gtk.ImageNewFromPixbuf(pixBuf)
+			must.Must(err)
+
+			time.Sleep(time.Second * 3) // for demo
+
+			glib.IdleAdd(func() {
+				loadingLabel.Destroy()
+				imageWidgetContainer.PackStart(imageWidget, false, false, 0)
+				imageWidgetContainer.ShowAll()
+			})
+		}
+	}()
 
 	openImageCardButton, err := gtk.ButtonNewWithLabel("open")
 	must.Must(err)
@@ -84,7 +104,7 @@ func (c *GalleryListingCard) createThumbnail(imageInfo *domain.ImageInfo) *gtk.B
 
 	vbox, err := gtk.BoxNew(gtk.ORIENTATION_VERTICAL, 5)
 	must.Must(err)
-	vbox.PackStart(imageWidget, false, false, 0)
+	vbox.PackStart(imageWidgetContainer, false, false, 0)
 	vbox.PackStart(hbox, false, false, 0)
 
 	return vbox
