@@ -77,10 +77,6 @@ func (c *GalleryListingCard) createThumbnail(imageInfo *domain.ImageInfo) *gtk.B
 		c.AppWindow.RenderCard(NewImageCard(c.AppWindow, imageInfo))
 	})
 
-	/*popupButton.Connect("clicked", func() {
-		ShowImagePopup(picture, c.AppWindow.win)
-	})*/
-
 	hbox, err := gtk.BoxNew(gtk.ORIENTATION_HORIZONTAL, 3)
 	must.Must(err)
 	hbox.PackStart(label, false, false, 0)
