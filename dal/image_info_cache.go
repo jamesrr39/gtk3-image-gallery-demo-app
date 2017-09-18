@@ -1,7 +1,7 @@
 package dal
 
 import (
-	"github.com/jamesrr39/gtk3-app/domain"
+	"github.com/jamesrr39/gtk3-image-gallery-demo-app/domain"
 )
 
 type imageInfoCache struct {

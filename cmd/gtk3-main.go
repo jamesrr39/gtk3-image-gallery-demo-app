@@ -3,8 +3,8 @@ package main
 import (
 	"github.com/gotk3/gotk3/gtk"
 	"github.com/jamesrr39/goutil/must"
-	"github.com/jamesrr39/gtk3-app/dal"
-	"github.com/jamesrr39/gtk3-app/ui"
+	"github.com/jamesrr39/gtk3-image-gallery-demo-app/dal"
+	"github.com/jamesrr39/gtk3-image-gallery-demo-app/ui"
 	kingpin "gopkg.in/alecthomas/kingpin.v2"
 )
 

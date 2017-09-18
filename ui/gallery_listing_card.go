@@ -6,7 +6,7 @@ import (
 	"github.com/disintegration/imaging"
 	"github.com/gotk3/gotk3/gtk"
 	"github.com/jamesrr39/goutil/must"
-	"github.com/jamesrr39/gtk3-app/domain"
+	"github.com/jamesrr39/gtk3-image-gallery-demo-app/domain"
 )
 
 type GalleryListingCard struct {

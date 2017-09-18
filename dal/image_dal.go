@@ -11,7 +11,7 @@ import (
 	"strings"
 
 	"github.com/jamesrr39/goutil/dirtraversal"
-	"github.com/jamesrr39/gtk3-app/domain"
+	"github.com/jamesrr39/gtk3-image-gallery-demo-app/domain"
 	"github.com/spf13/afero"
 )
 
