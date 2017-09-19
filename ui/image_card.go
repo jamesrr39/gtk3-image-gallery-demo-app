@@ -2,10 +2,13 @@ package ui
 
 import (
 	"image"
+	"time"
 
 	"github.com/disintegration/imaging"
+	"github.com/gotk3/gotk3/glib"
 	"github.com/gotk3/gotk3/gtk"
 	gotk3extra "github.com/jamesrr39/go-gtk-extra/gotk3-extra"
+	"github.com/jamesrr39/goutil/debounce"
 	"github.com/jamesrr39/goutil/image-processing/imageprocessingutil"
 	"github.com/jamesrr39/goutil/must"
 	"github.com/jamesrr39/gtk3-image-gallery-demo-app/domain"
@@ -135,6 +138,23 @@ func (c *ImageCard) Render() gtk.IWidget {
 	must.Must(err)
 	hbox.PackStart(c.imageContainer, false, false, 0)
 	hbox.PackStart(pictureModeButtonsBox, false, false, 0)
+
+	var previousAllocation *gtk.Allocation
+	debouncer := debounce.NewDebouncer(time.Millisecond * 100)
+
+	c.AppWindow.win.Connect("size-allocate", func() {
+		debouncer.Run(func() {
+			allocation := c.imageContainer.GetAllocation()
+			if previousAllocation == nil || allocation.GetWidth() != previousAllocation.GetWidth() || allocation.GetHeight() != previousAllocation.GetHeight() {
+				previousAllocation = allocation
+				resizedPicture = c.resizePicture(picture)
+				glib.IdleAdd(func() {
+					c.currentTransformation()
+					c.imageContainer.ShowAll()
+				})
+			}
+		})
+	})
 
 	return hbox
 }
