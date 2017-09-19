@@ -63,6 +63,12 @@
 			"revisionTime": "2017-09-18T22:14:38Z"
 		},
 		{
+			"checksumSHA1": "cXLbL5aqs1pJLiUJ6OR19v6zBL0=",
+			"path": "github.com/jamesrr39/goutil/debounce",
+			"revision": "2d7dc6d2de328f77599883bcae23d93928f8262d",
+			"revisionTime": "2017-09-18T23:13:52Z"
+		},
+		{
 			"checksumSHA1": "DmPGJoJZh7hW+xgjqBFKqGe7eD8=",
 			"path": "github.com/jamesrr39/goutil/dirtraversal",
 			"revision": "6487420f6dc11aa100aa117dce237c38fc41dadf",
